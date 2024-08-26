@@ -6,31 +6,34 @@
 /*   By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:44:23 by mgendrot          #+#    #+#             */
-/*   Updated: 2024/08/26 16:12:12 by mgendrot         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:45:47 by mgendrot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 128
-int *ft_relloc(char *pt ,int t  )
+char	*ft_strncat(char *dest, char *src, unsigned int nb)
 {
-	int	i;
-	char *ru ;
-	
-	i = 0 ;
-	ru = malloc(t);
-	while (pt[i])
+	unsigned int	i_d;
+	unsigned int	i_s;
+
+	i_d = 0;
+	i_s = 0;
+	while (dest[i_d])
+		i_d++;
+	while (src[i_s] && i_s < nb)
 	{
-		ru[i] = pt[i];
-		i++;
+		dest[i_d] = src[i_s];
+		i_d++;
+		i_s++;
 	}
-    free(pt); 
-	return (ru);
+	dest[i_d] = '\0';
+	return (dest);
 }
+
+#define BUFFER_SIZE 128
+
 
 int *ft_fopen(char *n , char *result)
 {
@@ -43,7 +46,7 @@ int *ft_fopen(char *n , char *result)
 	fd = open(n, O_RDONLY);
 	if (fd == -1)
 	{
-		write(1, "Erreur lors de l'ouverture du fichier.\n", 40);
+		write(1, "map error\n", 40);
 		return (NULL);
 	}
 	result = malloc(1);
